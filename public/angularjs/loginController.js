@@ -1,6 +1,6 @@
 var project = angular.module('project',[]);
 
-project.controller('loginController', function ($scope, $http) {
+project.controller('loginController', function ($scope, $http,$window) {
 	
 	$scope.tenant = "Tenant-1";
 	
@@ -16,18 +16,18 @@ project.controller('loginController', function ($scope, $http) {
 		}).success(function (data) {
 			if(data.statusCode == 401)
 			{
-				
+				alert("Invalid Email/Password combination");
 			}
 			else if(data.statusCode == 200)
 			{
-				alert('LOL');
+				window.location = "/grading";
 			}
 			else
-			{
-				
+			{ 	
+				alert("Invalid Email/Password combination");
 			}
 		}).error(function (error) {
-			
+			alert("Something went wrong! Please try again");
 		});
 	};
 });
