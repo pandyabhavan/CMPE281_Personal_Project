@@ -44,7 +44,7 @@ function upload(req,res)
 	console.log(req.files.file.name);
 	var tempPath = req.files.file.path;
 	var response;
-	var targetPath = path.resolve("/home/ec2-user/UML-Parser-Grading-System-Multitenant/public/uploadedFiles/"+req.files.file.name);
+	var targetPath = path.resolve("./public/uploadedFiles/"+req.files.file.name);
 	fs.rename(tempPath, targetPath, function(err) {
 		if (err)
 		{
@@ -52,20 +52,20 @@ function upload(req,res)
 			res.send(JSON.stringify(response));
 		}
 		console.log("Upload completed!");
-		fs.createReadStream("/home/ec2-user/UML-Parser-Grading-System-Multitenant/public/uploadedFiles/"+req.files.file.name)
+		fs.createReadStream("./public/uploadedFiles/"+req.files.file.name)
 		.pipe(unzip.Parse())
 		.on('entry', function (entry) {
 
 			var fileName = entry.path
 			var type = entry.type
-			var fullPath = '/home/ec2-user/UML-Parser-Grading-System-Multitenant/public/input/'+req.files.file.name+'/' + path.dirname( fileName )
+			var fullPath = './public/input/'+req.files.file.name+'/' + path.dirname( fileName )
 			fileName = path.basename( fileName )
 			mkdir.sync(fullPath)
 			entry.pipe(fs.createWriteStream( fullPath + '/' + fileName ))
 		})
 
 		var exec = require('child_process').exec;
-		var child = exec('java -jar /home/ec2-user/UML-Parser-Grading-System-Multitenant/public/jars/tenant1.jar /home/ec2-user/UML-Parser-Grading-System-Multitenant/public/input/'+req.files.file.name + ' /home/ec2-user/UML-Parser-Grading-System-Multitenant/public/output',
+		var child = exec('java -jar ./public/jars/tenant1.jar ./public/input/'+req.files.file.name + ' ./public/output/',
 				function (error, stdout, stderr){
 			console.log('Output -> ' + stdout);
 			if(error !== null){
