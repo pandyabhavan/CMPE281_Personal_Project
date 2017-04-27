@@ -71,10 +71,9 @@ function upload(req,res)
 			if(error !== null){
 				console.log("Error -> "+error);
 			}
+			 console.log('done');
 		});
 		
-		response = {"statusCode":200};
-		res.send(JSON.stringify(response));
 	});
 }
 
