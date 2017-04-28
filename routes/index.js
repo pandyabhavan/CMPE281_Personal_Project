@@ -4,5 +4,5 @@
  */
 
 exports.index = function(req, res){
-  res.render('grading', { title: 'Express' });
+  res.render('login', { title: 'Express' });
 };
