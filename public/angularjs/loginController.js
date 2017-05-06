@@ -2,7 +2,7 @@ var project = angular.module('project',[]);
 
 project.controller('loginController', function ($scope, $http,$window) {
 	
-	$scope.tenant = "Tenant-1";
+	$scope.tenant = "tenant1";
 	
 	$scope.login = function () {
 		$http({
@@ -20,7 +20,10 @@ project.controller('loginController', function ($scope, $http,$window) {
 			}
 			else if(data.statusCode == 200)
 			{
-				window.location = "/grading";
+				if($scope.tenant == "tenant1")
+					window.location = "/grading";
+				else
+					window.location = "/"+$scope.tenant;
 			}
 			else
 			{ 	
